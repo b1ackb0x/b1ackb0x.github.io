@@ -5,9 +5,35 @@
     <description></description>
     <link>http://dev.vishupuri.net/</link>
     <atom:link href="http://dev.vishupuri.net/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 04 Jul 2016 02:30:22 +0530</pubDate>
-    <lastBuildDate>Mon, 04 Jul 2016 02:30:22 +0530</lastBuildDate>
+    <pubDate>Mon, 04 Jul 2016 21:26:38 +0530</pubDate>
+    <lastBuildDate>Mon, 04 Jul 2016 21:26:38 +0530</lastBuildDate>
     <generator>Jekyll v3.1.6</generator>
+    
+      <item>
+        <title>Why I chose Jekyll with Github Pages</title>
+        <description>&lt;p&gt;I sat down this weekend to update this blog which was pending since long time. Initially, I had it hosted as a static site on &lt;a href=&quot;https://www.nearlyfreespeech.net&quot;&gt;Nearly Free Speech&lt;/a&gt;. I decided to revamp it a bit.&lt;/p&gt;
+
+&lt;p&gt;I first thought of going with a new static site generator like MiddleMan or Hugo. Searched a lot about a couple of them. Their plusses and minuses. And finally singled in on &lt;a href=&quot;https://gohugo.io&quot;&gt;Hugo&lt;/a&gt;. Its a great tool. I started to read the documentation. As I went about reading it, it all looked a bit familiar. I realized that this was the same thing that I had done when I’d chosen &lt;a href=&quot;https://jekyllrb.com&quot;&gt;Jekyll&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;It then dawned on me. My purpose of writing this blog is not limited or restricted to what tool I choose. It should be more about what I write. What is the content that I want to put in. And write with minimal fuss. It has been a while since I wrote another post here. And to be honest I had forgotten the purpose of using Jekyll.&lt;/p&gt;
+
+&lt;p&gt;I’ve finally updated the blog and hosted it on &lt;a href=&quot;http://pages.github.com/&quot;&gt;Github Pages&lt;/a&gt;. Not that there was anything wrong with having the entire setup on &lt;a href=&quot;https://www.nearlyfreespeech.net&quot;&gt;NFSN&lt;/a&gt; and they provide ample information to do it yourself. Also, the site being static, if at all any post here gets HN’ed or slashdotted (highly unlikely TBH), the only extra money that I might end up paying would be the network cost. But hosting it on Github pages provides an advantage to me in the sense that I can update the blog from my office as well.&lt;/p&gt;
+
+&lt;p&gt;I will see how hosting on Github goes. If I feel at any point in time that I need to switch back i can do it easily. But for now, Github Pages it is. :)&lt;/p&gt;
+
+</description>
+        <pubDate>Mon, 04 Jul 2016 21:07:15 +0530</pubDate>
+        <link>http://dev.vishupuri.net/2016/07/Why-I-Chose-Github-Pages</link>
+        <guid isPermaLink="true">http://dev.vishupuri.net/2016/07/Why-I-Chose-Github-Pages</guid>
+        
+        
+        <category>jekyll</category>
+        
+        <category>Hugo</category>
+        
+        <category>Github</category>
+        
+      </item>
     
       <item>
         <title>Replacing While loop by MERGE</title>
