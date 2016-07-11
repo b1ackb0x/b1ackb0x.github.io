@@ -5,8 +5,8 @@
     <description></description>
     <link>http://dev.vishupuri.net/</link>
     <atom:link href="http://dev.vishupuri.net/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 05 Jul 2016 01:06:40 +0530</pubDate>
-    <lastBuildDate>Tue, 05 Jul 2016 01:06:40 +0530</lastBuildDate>
+    <pubDate>Tue, 12 Jul 2016 02:27:46 +0530</pubDate>
+    <lastBuildDate>Tue, 12 Jul 2016 02:27:46 +0530</lastBuildDate>
     <generator>Jekyll v3.1.6</generator>
     
       <item>
@@ -26,12 +26,12 @@
         <link>http://dev.vishupuri.net/2016/07/Why-I-Chose-Github-Pages</link>
         <guid isPermaLink="true">http://dev.vishupuri.net/2016/07/Why-I-Chose-Github-Pages</guid>
         
-        
         <category>jekyll</category>
         
         <category>Hugo</category>
         
         <category>Github</category>
+        
         
       </item>
     
@@ -108,7 +108,6 @@ But the improvement was not there immediately. While I had taken care of the inn
         <link>http://dev.vishupuri.net/2012/02/Replacing-while-loop-with-merge</link>
         <guid isPermaLink="true">http://dev.vishupuri.net/2012/02/Replacing-while-loop-with-merge</guid>
         
-        
         <category>SQL</category>
         
         <category>While</category>
@@ -116,6 +115,7 @@ But the improvement was not there immediately. While I had taken care of the inn
         <category>Merge</category>
         
         <category>Performance</category>
+        
         
       </item>
     
@@ -172,12 +172,12 @@ After this, when the role module is called, in the Application_OnPostAcquireRequ
         <link>http://dev.vishupuri.net/2012/02/context-User-null-after-ticket-timeout</link>
         <guid isPermaLink="true">http://dev.vishupuri.net/2012/02/context-User-null-after-ticket-timeout</guid>
         
-        
         <category>Authentication</category>
         
         <category>Cookie</category>
         
         <category>Identity</category>
+        
         
       </item>
     
