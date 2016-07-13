@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <title>Using Process.Start with a Timer</title>
-  <meta name="description" content="Recently, there was a requirement to execute a script (powershell, ruby, shell, any other) on button click in a windows application and show the progress in ...">
+  <meta name="description" content="Recently, there was a scenario wherein I had to write an application to execute a script (powershell, ruby, shell, any other) on button click in a windows ap...">
 
   <link rel="stylesheet" href="/css/main.css">
   <link rel="canonical" href="http://dev.vishupuri.net/2016/07/Using-Process-Start-With-Timer">
@@ -16,8 +16,8 @@
 <!-- Begin Jekyll SEO tag v2.0.0 -->
 <title>Using Process.Start with a Timer - B1ackb0x</title>
 <meta property="og:title" content="Using Process.Start with a Timer" />
-<meta name="description" content="Recently, there was a requirement to execute a script (powershell, ruby, shell, any other) on button click in a windows application and show the progress in a progress bar." />
-<meta property="og:description" content="Recently, there was a requirement to execute a script (powershell, ruby, shell, any other) on button click in a windows application and show the progress in a progress bar." />
+<meta name="description" content="Recently, there was a scenario wherein I had to write an application to execute a script (powershell, ruby, shell, any other) on button click in a windows application and show the progress in a progress bar." />
+<meta property="og:description" content="Recently, there was a scenario wherein I had to write an application to execute a script (powershell, ruby, shell, any other) on button click in a windows application and show the progress in a progress bar." />
 <link rel="canonical" href="http://dev.vishupuri.net/2016/07/Using-Process-Start-With-Timer" />
 <meta property="og:url" content="http://dev.vishupuri.net/2016/07/Using-Process-Start-With-Timer" />
 <meta property="og:site_name" content="B1ackb0x" />
@@ -29,7 +29,7 @@
     "@type": "BlogPosting",
     "headline": "Using Process.Start with a Timer",
     "datePublished": "2016-07-04T21:07:15+05:30",
-    "description": "Recently, there was a requirement to execute a script (powershell, ruby, shell, any other) on button click in a windows application and show the progress in a progress bar.",
+    "description": "Recently, there was a scenario wherein I had to write an application to execute a script (powershell, ruby, shell, any other) on button click in a windows application and show the progress in a progress bar.",
     "url": "http://dev.vishupuri.net/2016/07/Using-Process-Start-With-Timer"
   }
 </script>
@@ -87,17 +87,75 @@
   </header>
 
   <div class="post-content" itemprop="articleBody">
-    <p>Recently, there was a requirement to execute a script (powershell, ruby, shell, any other) on button click in a windows application and show the progress in a progress bar.</p>
+    <p>Recently, there was a scenario wherein I had to write an application to execute a script (powershell, ruby, shell, any other) on button click in a windows application and show the progress in a progress bar.</p>
 
-<p>This was interesting as I had not tinkered with executing a script from a windows application before.</p>
+<p>This was interesting as I had not tinkered with executing a script with a progress bar. I did some research and found that to run a powershell script, one needs to use <code>Create()</code> method of <a href="https://msdn.microsoft.com/en-us/library/system.management.automation.powershell(v=vs.85).aspx">Powershell class</a> along with the specified parameters.
+What if its a script other than powershell script?</p>
+
+<p>I used the <a href="https://msdn.microsoft.com/en-us/library/system.diagnostics.process(v=vs.110).aspx">Process</a> class to achieve this. Using this method I am able to run most of the scripts along with specific parameters. For now I will describe the basic use of the Process class along with the timer to display progress via the progress bar till the process is complete.</p>
+
+<p>I created a simple <a href="http://dev.vishupuri.net/assets/pwt.png">winform application</a> for this. The application contains a button and the progress bar in a form. On click of the button the process along with its parameters is executed and progress is shown on progress bar.</p>
+
+<p>Below is the code for the button <code>Click</code> event:</p>
+
+<figure class="highlight"><pre><code class="language-c#" data-lang="c#"><span class="k">private</span> <span class="k">void</span> <span class="nf">btnExecProcess_Click</span><span class="p">(</span><span class="kt">object</span> <span class="n">sender</span><span class="p">,</span> <span class="n">EventArgs</span> <span class="n">e</span><span class="p">)</span>
+        <span class="p">{</span>
+	    <span class="c1">// See ProcessStartInfo class on how to pass script parameters as arguments.
+</span>
+            <span class="n">ProcessStartInfo</span> <span class="n">info</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">ProcessStartInfo</span><span class="p">();</span>
+            <span class="n">info</span><span class="p">.</span><span class="n">UseShellExecute</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
+            <span class="n">info</span><span class="p">.</span><span class="n">CreateNoWindow</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
+            <span class="n">info</span><span class="p">.</span><span class="n">RedirectStandardError</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
+            <span class="n">info</span><span class="p">.</span><span class="n">RedirectStandardOutput</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
+            <span class="n">info</span><span class="p">.</span><span class="n">FileName</span> <span class="p">=</span> <span class="s">"calc.exe"</span><span class="p">;</span>
+            
+            <span class="k">try</span>
+            <span class="p">{</span>
+		<span class="c1">// process is defined at the beginning of the class as a private variable.
+</span>
+                <span class="n">process</span> <span class="p">=</span> <span class="n">Process</span><span class="p">.</span><span class="nf">Start</span><span class="p">(</span><span class="n">info</span><span class="p">);</span>
+                <span class="n">timer1</span><span class="p">.</span><span class="nf">Start</span><span class="p">();</span>
+            <span class="p">}</span>
+            <span class="k">catch</span> <span class="p">(</span><span class="n">Win32Exception</span> <span class="n">wiex</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="n">timer1</span><span class="p">.</span><span class="nf">Stop</span><span class="p">();</span>
+                <span class="kt">string</span> <span class="n">err</span> <span class="p">=</span> <span class="kt">string</span><span class="p">.</span><span class="nf">Format</span><span class="p">(</span><span class="s">"Error: {0}"</span><span class="p">,</span> <span class="n">wiex</span><span class="p">.</span><span class="n">Message</span><span class="p">);</span>
+                <span class="n">MessageBox</span><span class="p">.</span><span class="nf">Show</span><span class="p">(</span><span class="n">err</span><span class="p">,</span> <span class="s">"An error occurred"</span><span class="p">,</span> <span class="n">MessageBoxButtons</span><span class="p">.</span><span class="n">OK</span><span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">}</span></code></pre></figure>
+
+<p>And here is the code for the timer <code>Tick</code> event:</p>
+
+<figure class="highlight"><pre><code class="language-c#" data-lang="c#"><span class="k">private</span> <span class="k">void</span> <span class="nf">timer1_Tick</span><span class="p">(</span><span class="kt">object</span> <span class="n">sender</span><span class="p">,</span> <span class="n">EventArgs</span> <span class="n">e</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">process</span> <span class="p">!=</span> <span class="k">null</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(!</span><span class="n">process</span><span class="p">.</span><span class="n">HasExited</span><span class="p">)</span>
+                <span class="p">{</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="n">progressBar1</span><span class="p">.</span><span class="n">Value</span> <span class="p">&gt;=</span> <span class="n">progressBar1</span><span class="p">.</span><span class="n">Maximum</span><span class="p">)</span>
+                        <span class="n">progressBar1</span><span class="p">.</span><span class="n">Value</span> <span class="p">=</span> <span class="m">1</span><span class="p">;</span>
+                    <span class="n">progressBar1</span><span class="p">.</span><span class="n">Value</span> <span class="p">+=</span> <span class="m">1</span><span class="p">;</span>
+                <span class="p">}</span>
+                <span class="k">else</span>
+                <span class="p">{</span>
+                    <span class="n">progressBar1</span><span class="p">.</span><span class="n">Value</span> <span class="p">=</span> <span class="n">progressBar1</span><span class="p">.</span><span class="n">Maximum</span><span class="p">;</span>
+                    <span class="n">timer1</span><span class="p">.</span><span class="nf">Stop</span><span class="p">();</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span></code></pre></figure>
+
+<p>As I am using the button to open a calculator it might not show significant progress in the bar. The value can be increased in multiples like +5 or +10 to see noticeable difference. But it would work better in case you try to run it with actual script (let’s say a .bat file) with parameters so that process takes time to complete.</p>
+
+<p>Do explore <a href="https://msdn.microsoft.com/en-us/library/system.diagnostics.process(v=vs.110).aspx">Process</a> and <a href="https://msdn.microsoft.com/en-in/library/system.diagnostics.processstartinfo(v=vs.110).aspx">ProcessStartInfo</a> properties. Specifically how the error and output of the <code>Process.Start</code> method can be captured and displayed along with conditions on <code>Process.ExitCode</code> values.</p>
+
 
   </div>
 
 
-<a href="https://twitter.com/share" data-href="http://dev.vishupuri.net/2016/07/Using-Process-Start-With-Timer" class="twitter-share-button" data-show-count="true">Tweet</a><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>&nbsp;&nbsp;
+<a href="https://twitter.com/share" data-href="http://dev.vishupuri.net/2016/07/Using-Process-Start-With-Timer" class="twitter-share-button" data-show-count="false">Tweet</a><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>&nbsp;&nbsp;&nbsp;&nbsp;
 
 <!-- Place this tag where you want the share button to render. -->
-<div class="g-plus" data-href="http://dev.vishupuri.net/2016/07/Using-Process-Start-With-Timer" data-action="share"></div>
+<div class="g-plus" data-href="http://dev.vishupuri.net/2016/07/Using-Process-Start-With-Timer" data-action="share"></div><br>
 
 
 	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
