@@ -5,8 +5,8 @@
     <description></description>
     <link>http://dev.vishupuri.net/</link>
     <atom:link href="http://dev.vishupuri.net/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Wed, 13 Jul 2016 23:44:09 +0530</pubDate>
-    <lastBuildDate>Wed, 13 Jul 2016 23:44:09 +0530</lastBuildDate>
+    <pubDate>Thu, 14 Jul 2016 00:00:42 +0530</pubDate>
+    <lastBuildDate>Thu, 14 Jul 2016 00:00:42 +0530</lastBuildDate>
     <generator>Jekyll v3.1.6</generator>
     
       <item>
@@ -73,7 +73,7 @@ What if its a script other than powershell script?&lt;/p&gt;
 &lt;p&gt;Do explore &lt;a href=&quot;https://msdn.microsoft.com/en-us/library/system.diagnostics.process(v=vs.110).aspx&quot;&gt;Process&lt;/a&gt; and &lt;a href=&quot;https://msdn.microsoft.com/en-in/library/system.diagnostics.processstartinfo(v=vs.110).aspx&quot;&gt;ProcessStartInfo&lt;/a&gt; properties. Specifically how the error and output of the &lt;code&gt;Process.Start&lt;/code&gt; method can be captured and displayed along with conditions on &lt;code&gt;Process.ExitCode&lt;/code&gt; values.&lt;/p&gt;
 
 </description>
-        <pubDate>Mon, 04 Jul 2016 21:07:15 +0530</pubDate>
+        <pubDate>Wed, 13 Jul 2016 22:07:15 +0530</pubDate>
         <link>http://dev.vishupuri.net/2016/07/Using-Process-Start-With-Timer</link>
         <guid isPermaLink="true">http://dev.vishupuri.net/2016/07/Using-Process-Start-With-Timer</guid>
         
