@@ -5,8 +5,8 @@
     <description></description>
     <link>http://dev.vishupuri.net/</link>
     <atom:link href="http://dev.vishupuri.net/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 17 Jul 2016 13:02:03 +0530</pubDate>
-    <lastBuildDate>Sun, 17 Jul 2016 13:02:03 +0530</lastBuildDate>
+    <pubDate>Mon, 18 Jul 2016 12:03:07 +0530</pubDate>
+    <lastBuildDate>Mon, 18 Jul 2016 12:03:07 +0530</lastBuildDate>
     <generator>Jekyll v3.1.6</generator>
     
       <item>
@@ -115,8 +115,8 @@ What if its a script other than powershell script?&lt;/p&gt;
       </item>
     
       <item>
-        <title>Replacing While loop by MERGE</title>
-        <description>&lt;p&gt;&lt;a href=&quot;/2012/02/Replacing-while-loop-with-merge&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+        <title>Replacing While with MERGE</title>
+        <description>&lt;p&gt;&lt;a href=&quot;/2012/03/Replacing-while-with-merge&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;I had to re-write a stored procedure. Well, I had to merge the logic of a couple of stored procedures into one actually. Our team swtiched to SQL Server 2008 R2 a couple of months back. &lt;/p&gt;
 &lt;p&gt;Now something about what the 2 stored procs do; Both of them are used to send out notifications to the user. The first stored proc gets the user details. The second one, is called per user to get the notification details. For each user, there can be more than one notification. So say, we have around 500 users, and each has 3 or more notifications, the current logic was to loop over all the 500 users and combine all their notifications to send out a single email to each one of them.&lt;/p&gt;
@@ -183,9 +183,9 @@ But the improvement was not there immediately. While I had taken care of the inn
 &lt;li&gt;&lt;a href=&quot;http://technet.microsoft.com/en-us/library/cc879317.aspx&quot;&gt;Optimizing MERGE Statement Performance&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </description>
-        <pubDate>Thu, 16 Feb 2012 19:14:25 +0530</pubDate>
-        <link>http://dev.vishupuri.net/2012/02/Replacing-while-loop-with-merge</link>
-        <guid isPermaLink="true">http://dev.vishupuri.net/2012/02/Replacing-while-loop-with-merge</guid>
+        <pubDate>Fri, 16 Mar 2012 19:14:25 +0530</pubDate>
+        <link>http://dev.vishupuri.net/2012/03/Replacing-while-with-merge</link>
+        <guid isPermaLink="true">http://dev.vishupuri.net/2012/03/Replacing-while-with-merge</guid>
         
         <category>SQL</category>
         
