@@ -5,9 +5,37 @@
     <description></description>
     <link>http://dev.vishupuri.net/</link>
     <atom:link href="http://dev.vishupuri.net/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 21 Aug 2016 00:48:34 +0530</pubDate>
-    <lastBuildDate>Sun, 21 Aug 2016 00:48:34 +0530</lastBuildDate>
+    <pubDate>Sat, 24 Sep 2016 16:48:49 +0530</pubDate>
+    <lastBuildDate>Sat, 24 Sep 2016 16:48:49 +0530</lastBuildDate>
     <generator>Jekyll v3.1.6</generator>
+    
+      <item>
+        <title>Why X language is better than Y</title>
+        <description>&lt;p&gt;I started working with golang about a month ago and did some hands on. Looks like a pretty good language to write backend code and lots of other stuff.&lt;/p&gt;
+
+&lt;p&gt;As I surfed through various links searching for various references, I came across a &lt;a href=&quot;https://www.quora.com/Why-does-Go-seem-to-be-the-most-heavily-criticised-among-the-newer-programming-languages?srid=uCiY&amp;amp;share=1&quot;&gt;quora question&lt;/a&gt; with interesting debate on golang. There are arguments both for and against the design of the language. The arguments mostly hover around that Go is not designed as a modern language that serves various areas, unlike other languages like Scala, Rust, etc. and how Google has designed an outdated language. Few more discussions &lt;a href=&quot;https://www.quora.com/Why-wasnt-Go-written-as-a-functional-language&quot;&gt;here&lt;/a&gt; and &lt;a href=&quot;https://www.reddit.com/r/golang/comments/1uj9rl/leaving_go_a_short_go_critique/&quot;&gt;here&lt;/a&gt;. Some have come out &lt;a href=&quot;https://npf.io/2014/10/why-everyone-hates-go/&quot;&gt;in defence&lt;/a&gt; as well. But as a software engineer I find it difficult to say that X language is better than Y. Let me explain.&lt;/p&gt;
+
+&lt;p&gt;As an engineer our purpose is to solve a problem using the best tools available. If a language X solves my problem better than Y then I am going to use X. No point blaming Y in that case. May be X is not the right language for my task. There might be a question of having an attachment with the tools and languages that you have worked on. That is a fair point. Once you start coding you cannot help but admire the elegance and beauty of the code and how it works. Same goes for criticism as well. However, one has to come back to reality and, and this is important, identify if the current language or tool no longer works for the product. Perhaps this is something similar to the &lt;a href=&quot;https://en.wikipedia.org/wiki/The_Innovator%27s_Dilemma&quot;&gt;Innovator’s dilemma&lt;/a&gt; where the creator has to take a step back and analyze if its time for a re-design.&lt;/p&gt;
+
+&lt;p&gt;If X language doesn’t fit your needs, move to Y. X was made for a specific purpose. If its doing that then its mission accomplished. If its not then try to find out if any other tool/language works. Same can be said for processes, architecture, almost anything that goes into making a product. Worst case, if none of the languages don’t seem to fit, you might have to write a new one or extend an existing one. :) That is how we can make better software I guess.&lt;/p&gt;
+
+&lt;p&gt;I have Go just as an example. Must be with other languages or tools as well. Do watch Rob Pike’s &lt;a href=&quot;https://talks.golang.org/2012/splash.article&quot;&gt;talk&lt;/a&gt; on golang and why Google needed it.&lt;/p&gt;
+
+</description>
+        <pubDate>Sat, 24 Sep 2016 16:41:47 +0530</pubDate>
+        <link>http://dev.vishupuri.net/2016/09/Why-X-language-is-better-than-Y</link>
+        <guid isPermaLink="true">http://dev.vishupuri.net/2016/09/Why-X-language-is-better-than-Y</guid>
+        
+        <category>languages</category>
+        
+        <category>development</category>
+        
+        <category>coding</category>
+        
+        <category>golang</category>
+        
+        
+      </item>
     
       <item>
         <title>Binding a Key Value Pair to Combobox</title>
