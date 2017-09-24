@@ -7,33 +7,28 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <title>context.User NULL after ticket timeout</title>
-  <meta name="description" content="context.User NULL after ticket timeoutWe encountered a strange bug. Let me give you the context first. We use forms authentication and a role module (http mo...">
+  <meta name="description" content="context.User NULL after ticket timeout">
 
   <link rel="stylesheet" href="/css/main.css">
   <link rel="canonical" href="http://dev.vishupuri.net/2012/02/context-User-null-after-ticket-timeout">
   <link rel="alternate" type="application/rss+xml" title="B1ackb0x" href="http://dev.vishupuri.net/feed.xml">
 
-<!-- Begin Jekyll SEO tag v2.0.0 -->
-<title>context.User NULL after ticket timeout - B1ackb0x</title>
+<!-- Begin Jekyll SEO tag v2.3.0 -->
+<title>context.User NULL after ticket timeout | B1ackb0x</title>
 <meta property="og:title" content="context.User NULL after ticket timeout" />
-<meta name="description" content="context.User NULL after ticket timeoutWe encountered a strange bug. Let me give you the context first. We use forms authentication and a role module (http module) for authenticating the user so as to allow role based access to member pages. In our global.asax page, we verify and renew FormsAuthentication ticket in FormsAuthentication_OnAuthenticate event.What was happening was that after the FormsAuthentication ticket timed out, the user was logging out when any link was clicked. However, if any other link was clicked immediately after that, the user was authenticated and was able to navigate to that page.Here is what we do in our role module, in the Application_OnPostAcquireRequestState event:HttpApplication application = source as HttpApplication;HttpContext context = application.Context;if (context.User.Identity.IsAuthenticated &amp;amp;&amp;amp;         (!Roles.CookieRequireSSL || context.Request.IsSecureConnection)){  //Read the roles data from the Roles cookie..  context.User = new CustomPrincipal(context.User.Identity, cookieValue);  Thread.CurrentPrincipal = context.User;}As you can see, if context.User is set, the code inside will get executed and context.User will be re-initialized. However, when the ticket times out, context.User becomes NULL and context.User is not reset. While searching for the issue, I came across the MSDN documentation for FormsAuthentication_OnAuthenticate event handler delegate. It clearly states that:If you do not specify a value for the User property during the FormsAuthentication_OnAuthenticate event, the identity supplied by the forms authentication ticket in the cookie or URL is used.This was a great help, as I finally found the root cause. What happens is when the ticket times out, the event tries to decrypt the FormsAuthentication ticket and create a FormsIdentity instance which is then used to initialize context.User. However, in our case, we are not setting ticket.Name with the username. Instead, its an empty string. So, it must be that Authenticate event is not able to set the context.User object by decrypting the renewed ticket.To solve this, in case ticket is expired, I renew the ticket and create a GenericIdentity object, which I then use to initialize context.User. Here is the code:if(ticket.Expired){  //renew the ticket..  IIdentity identity = new GenericIdentity(username, &quot;Forms&quot;);  context.User = new CustomPrincipal(identity);}After this, when the role module is called, in the Application_OnPostAcquireRequestState event, context.User is found to be true and the code proceeds normally. The end user, even after ticket timeout, navigates to the page he clicked on.Related readings:This question on StackOverflowBuilding Secure ASP.NET Applications" />
-<meta property="og:description" content="context.User NULL after ticket timeoutWe encountered a strange bug. Let me give you the context first. We use forms authentication and a role module (http module) for authenticating the user so as to allow role based access to member pages. In our global.asax page, we verify and renew FormsAuthentication ticket in FormsAuthentication_OnAuthenticate event.What was happening was that after the FormsAuthentication ticket timed out, the user was logging out when any link was clicked. However, if any other link was clicked immediately after that, the user was authenticated and was able to navigate to that page.Here is what we do in our role module, in the Application_OnPostAcquireRequestState event:HttpApplication application = source as HttpApplication;HttpContext context = application.Context;if (context.User.Identity.IsAuthenticated &amp;amp;&amp;amp;         (!Roles.CookieRequireSSL || context.Request.IsSecureConnection)){  //Read the roles data from the Roles cookie..  context.User = new CustomPrincipal(context.User.Identity, cookieValue);  Thread.CurrentPrincipal = context.User;}As you can see, if context.User is set, the code inside will get executed and context.User will be re-initialized. However, when the ticket times out, context.User becomes NULL and context.User is not reset. While searching for the issue, I came across the MSDN documentation for FormsAuthentication_OnAuthenticate event handler delegate. It clearly states that:If you do not specify a value for the User property during the FormsAuthentication_OnAuthenticate event, the identity supplied by the forms authentication ticket in the cookie or URL is used.This was a great help, as I finally found the root cause. What happens is when the ticket times out, the event tries to decrypt the FormsAuthentication ticket and create a FormsIdentity instance which is then used to initialize context.User. However, in our case, we are not setting ticket.Name with the username. Instead, its an empty string. So, it must be that Authenticate event is not able to set the context.User object by decrypting the renewed ticket.To solve this, in case ticket is expired, I renew the ticket and create a GenericIdentity object, which I then use to initialize context.User. Here is the code:if(ticket.Expired){  //renew the ticket..  IIdentity identity = new GenericIdentity(username, &quot;Forms&quot;);  context.User = new CustomPrincipal(identity);}After this, when the role module is called, in the Application_OnPostAcquireRequestState event, context.User is found to be true and the code proceeds normally. The end user, even after ticket timeout, navigates to the page he clicked on.Related readings:This question on StackOverflowBuilding Secure ASP.NET Applications" />
+<meta name="author" content="blackb0x" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="context.User NULL after ticket timeout" />
+<meta property="og:description" content="context.User NULL after ticket timeout" />
 <link rel="canonical" href="http://dev.vishupuri.net/2012/02/context-User-null-after-ticket-timeout" />
 <meta property="og:url" content="http://dev.vishupuri.net/2012/02/context-User-null-after-ticket-timeout" />
 <meta property="og:site_name" content="B1ackb0x" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2012-02-12T00:00:00+05:30" />
 <script type="application/ld+json">
-  {
-    "@context": "http://schema.org",
-    "@type": "BlogPosting",
-    "headline": "context.User NULL after ticket timeout",
-    "datePublished": "2012-02-12T00:00:00+05:30",
-    "description": "context.User NULL after ticket timeoutWe encountered a strange bug. Let me give you the context first. We use forms authentication and a role module (http module) for authenticating the user so as to allow role based access to member pages. In our global.asax page, we verify and renew FormsAuthentication ticket in FormsAuthentication_OnAuthenticate event.What was happening was that after the FormsAuthentication ticket timed out, the user was logging out when any link was clicked. However, if any other link was clicked immediately after that, the user was authenticated and was able to navigate to that page.Here is what we do in our role module, in the Application_OnPostAcquireRequestState event:HttpApplication application = source as HttpApplication;HttpContext context = application.Context;if (context.User.Identity.IsAuthenticated &amp;amp;&amp;amp;         (!Roles.CookieRequireSSL || context.Request.IsSecureConnection)){  //Read the roles data from the Roles cookie..  context.User = new CustomPrincipal(context.User.Identity, cookieValue);  Thread.CurrentPrincipal = context.User;}As you can see, if context.User is set, the code inside will get executed and context.User will be re-initialized. However, when the ticket times out, context.User becomes NULL and context.User is not reset. While searching for the issue, I came across the MSDN documentation for FormsAuthentication_OnAuthenticate event handler delegate. It clearly states that:If you do not specify a value for the User property during the FormsAuthentication_OnAuthenticate event, the identity supplied by the forms authentication ticket in the cookie or URL is used.This was a great help, as I finally found the root cause. What happens is when the ticket times out, the event tries to decrypt the FormsAuthentication ticket and create a FormsIdentity instance which is then used to initialize context.User. However, in our case, we are not setting ticket.Name with the username. Instead, its an empty string. So, it must be that Authenticate event is not able to set the context.User object by decrypting the renewed ticket.To solve this, in case ticket is expired, I renew the ticket and create a GenericIdentity object, which I then use to initialize context.User. Here is the code:if(ticket.Expired){  //renew the ticket..  IIdentity identity = new GenericIdentity(username, &quot;Forms&quot;);  context.User = new CustomPrincipal(identity);}After this, when the role module is called, in the Application_OnPostAcquireRequestState event, context.User is found to be true and the code proceeds normally. The end user, even after ticket timeout, navigates to the page he clicked on.Related readings:This question on StackOverflowBuilding Secure ASP.NET Applications",
-    "url": "http://dev.vishupuri.net/2012/02/context-User-null-after-ticket-timeout"
-  }
-</script>
+{"name":null,"description":"context.User NULL after ticket timeout","author":{"@type":"Person","name":"blackb0x"},"@type":"BlogPosting","url":"http://dev.vishupuri.net/2012/02/context-User-null-after-ticket-timeout","publisher":null,"image":null,"headline":"context.User NULL after ticket timeout","dateModified":"2012-02-12T00:00:00+05:30","datePublished":"2012-02-12T00:00:00+05:30","sameAs":null,"mainEntityOfPage":{"@type":"WebPage","@id":"http://dev.vishupuri.net/2012/02/context-User-null-after-ticket-timeout"},"@context":"http://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
+
 
 <!-- Place this tag in your head or just before your close body tag. -->
 <script src="https://apis.google.com/js/platform.js" async defer></script>
@@ -61,6 +56,8 @@
         
           
           <a class="page-link" href="/about/">About</a>
+          
+        
           
         
           
@@ -177,22 +174,12 @@ After this, when the role module is called, in the Application_OnPostAcquireRequ
 
 
 
-	<div class="alignleft">
-     <script type="text/javascript">
-       	amzn_assoc_ad_type = "banner";
-	amzn_assoc_marketplace = "amazon";
-	amzn_assoc_region = "US";
-	amzn_assoc_placement = "assoc_banner_placement_default";
-	amzn_assoc_campaigns = "videogames";
-	amzn_assoc_banner_type = "category";
-	amzn_assoc_isresponsive = "true";
-	amzn_assoc_banner_id = "03XX10Q1NZN7VPMSY702";
-	amzn_assoc_tracking_id = "blackbox20-20";
-	amzn_assoc_linkid = "1d43490420c340ebdec5e10f61e05374";
-     </script>
-     <script src="//z-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&Operation=GetScript&ID=OneJS&WS=1"></script>
-    </div>
- <br />
+	<script type="text/javascript" language="javascript">
+      var aax_size='728x90';
+      var aax_pubname = 'b1ackbox-21';
+      var aax_src='302';
+    </script>
+    <script type="text/javascript" language="javascript" src="http://c.amazon-adsystem.com/aax2/assoc.js"></script> <br />
 
 <!--Disqus script start-->
         
